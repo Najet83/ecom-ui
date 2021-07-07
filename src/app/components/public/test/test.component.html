@@ -1,0 +1,30 @@
+<!--<div class="container">
+    <p> Hello {{ name }}</p>
+    <img [src]="imageUrl" alt="formaLab logo" width="100px">
+    <button class="btn btn-sm btn-info mt-1" (click)="hello(name)">click</button>
+    <hr>
+    <ul *ngFor="let bookname of bookList">
+        <li>{{ bookname }} </li>
+
+    </ul>
+
+    <div *ngIf="bookList.length == 0" class="alert alert-warning"> no books found</div>
+    <hr>
+    
+    <ul *ngFor="let user of usersList">
+        <li> {{ user.firstname }} </li>
+
+    </ul>
+
+</div>-->
+
+<div class="container">
+    <form [formGroup]="myForm" (ngSubmit)="saveUser()">
+        <label for="firstname">FirstName</label>
+        <input type="text" name="firstname" id="firstname" formControlName="firstName">
+
+        <input type="submit" value="Send">
+
+    </form>
+
+</div>

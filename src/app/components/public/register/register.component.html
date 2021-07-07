@@ -3,60 +3,112 @@
 
 <div class="container">
 
-<div class="card o-hidden border-0 shadow-lg my-5">
-  <div class="card-body p-0">
-    <!-- Nested Row within Card Body -->
-    <div class="row">
-      <div class="col-lg-5 d-none d-lg-block bg-register-image">
-      </div>
-      <div class="col-lg-7">
-        <div class="p-5">
-          <div class="text-center">
-            <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
-          </div>
-          <form class="user">
-            <div class="form-group row">
-              <div class="col-sm-6 mb-3 mb-sm-0">
-                <input type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="First Name">
-              </div>
-              <div class="col-sm-6">
-                <input type="text" class="form-control form-control-user" id="exampleLastName" placeholder="Last Name">
-              </div>
+  <div class="card o-hidden border-0 shadow-lg my-5">
+    <div class="card-body p-0">
+      <!-- Nested Row within Card Body -->
+      <div class="row">
+        <div class="col-lg-5 d-none d-lg-block bg-register-image">
+        </div>
+        <div class="col-lg-7">
+          <div class="p-5">
+            <div class="text-center">
+              <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
             </div>
-            <div class="form-group">
-              <input type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address">
-            </div>
-            <div class="form-group row">
-              <div class="col-sm-6 mb-3 mb-sm-0">
-                <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+
+            <form [formGroup]="registerForm" (ngSubmit)="register()">
+
+              <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                  <input type="text" class="form-control form-control-user" id="exampleFirstName"
+                    formControlName="firstname" placeholder="First Name">
+                  <div *ngIf="firstname?.touched && firstname?.invalid">
+                    <small *ngIf="firstname?.errors?.required" class="text-danger">Firstname is required<br></small>
+                    <small *ngIf="firstname?.errors?.pattern" class="text-danger">Invalid Firstname<br></small>
+                    <small *ngIf="firstname?.errors?.minlength" class="text-danger">Firstname must contain two
+                      characters
+                      at least</small>
+                  </div>
+
+                </div>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control form-control-user" id="exampleLastName"
+                    formControlName="lastname" placeholder="Last Name">
+                  <div *ngIf="lastname?.touched && lastname?.invalid">
+                    <small *ngIf="lastname?.errors?.required" class="text-danger">LastName is required<br></small>
+                    <small *ngIf="lastname?.errors?.pattern" class="text-danger">Invalid LastName<br></small>
+                    <small *ngIf="lastname?.errors?.minlength" class="text-danger">LastName must contain two characters
+                      at least</small>
+                  </div>
+
+                </div>
               </div>
-              <div class="col-sm-6">
-                <input type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password">
+
+              <div class="form-group">
+                <input type="email" class="form-control form-control-user" id="exampleInputEmail"
+                  formControlName="email" placeholder="Email Address">
+                <div *ngIf="email?.touched && email?.invalid">
+                  <small *ngIf="email?.errors?.required" class="text-danger">Email is required<br></small>
+                  <small *ngIf="email?.errors?.email" class="text-danger">Invalid Email<br></small>
+                </div>
+
               </div>
-            </div>
-            <a href="./../index.html" class="btn btn-primary btn-user btn-block">
-              Register Account
-            </a>
+
+
+              <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                  <input type="password" class="form-control form-control-user" id="exampleInputPassword"
+                    formControlName="password" placeholder="Password">
+                  <div *ngIf="password?.touched && password?.invalid">
+                    <small *ngIf="password?.errors?.required" class="text-danger">Password is required<br></small>
+                    <small *ngIf="password?.errors?.minlength" class="text-danger">password must contain 6 characters at
+                      least</small>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <input type="password" class="form-control form-control-user" id="exampleRepeatPassword"
+                    formControlName="repeatPassword" placeholder="Repeat Password">
+                  <div *ngIf="repeatPassword?.touched && repeatPassword?.invalid">
+                    <small *ngIf="repeatPassword?.errors?.required" class="text-danger">Repeat Password is
+                      required<br></small>
+                    <small *ngIf="repeatPassword?.errors?.minlength" class="text-danger">Repeat password must contain 6
+                      characters at
+                      least</small>
+                  </div>
+
+                  <div *ngIf="repeatPassword?.valid && repeatPassword?.value != password?.value" class="text-danger">
+                    The repeat password entred does not match
+                  </div>
+                </div>
+              </div>
+              <!-- <a href="./../index.html" class="btn btn-primary btn-user btn-block">
+                Register Account
+              </a> -->
+              <div class="form-row">
+                <div class="form-group col">
+                  <input type="submit" value="Register" [disabled]="registerForm?.invalid || repeatPassword?.value != password?.value" class="btn btn-info">
+                </div>
+              </div>
+
+              <hr>
+              <a href="index.html" class="btn btn-google btn-user btn-block">
+                <i class="fab fa-google fa-fw"></i> Register with Google
+              </a>
+              <a href="index.html" class="btn btn-facebook btn-user btn-block">
+                <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
+              </a>
+            </form>
             <hr>
-            <a href="index.html" class="btn btn-google btn-user btn-block">
-              <i class="fab fa-google fa-fw"></i> Register with Google
-            </a>
-            <a href="index.html" class="btn btn-facebook btn-user btn-block">
-              <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-            </a>
-          </form>
-          <hr>
-          <div class="text-center">
-            <a class="small" href="./forgot-password.html">Forgot Password?</a>
-          </div>
-          <div class="text-center">
-            <a class="small" href="./login.html">Already have an account? Login!</a>
+            <div class="text-center">
+              <a class="small" href="./forgot-password.html">Forgot Password?</a>
+            </div>
+            <div class="text-center">
+              <a class="small" href="./login.html">Already have an account? Login!</a>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
 </div>
 
